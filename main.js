@@ -17,6 +17,7 @@ function inputNumber(){
          num1 += items
      }
 }
+
 items.forEach((btn) => {
     btn.addEventListener("click", (e) => {
         items = e.target.textContent;
