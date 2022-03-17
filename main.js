@@ -2,17 +2,18 @@ let input = document.querySelector(".input");
 let items = document.querySelectorAll("#button");
 let result = document.getElementById('result');
 let clear = document.getElementById("clear");
-let opearator = document.querySelectorAll("#operator");
+let opearator = document.querySelectorAll("#operator"); 
+let del = document.getElementById("del")
 let stop = false;
 
 //xử lý nhấp chuột
 function inputNumber(){
     if(stop){
         input.textContent += items;
-         num2 += items
+         
      } else{
          input.textContent += items;
-         num1 += items
+         
      }
 }
 
@@ -37,21 +38,20 @@ opearator.forEach((btn) => {
         
     })
 })
+
 clear.addEventListener("click", () =>{
     input.textContent = "";
 })
+del.addEventListener("click", () => {
+    input.textContent = input.textContent.slice(0,-1)
+    
+})
+
 
 result.addEventListener("click", () => {  
-    // đây là chuỗi mà chúng tôi sẽ xử lý, ví dụ. -10 + 26 + 33-56 * 34/23
+   
   let inputString = input.innerHTML;
-
-  // tạo thành một mảng số. ví dụ: đối với chuỗi trên, nó sẽ là: number = ["10", "26", "33", "56", "34", "23"]
-
   let numbers = inputString.split(/\+|\-|\*|\//g);
-
-  // tạo thành một mảng các toán tử. đối với chuỗi trên nó sẽ là: operator = ["+", "+", "-", "*", "/"]
-
-  // đầu tiên chúng tôi thay thế tất cả các số và dấu chấm bằng chuỗi trống và sau đó tách
   let operators = inputString.replace(/[0-9]|\./g, "").split("");
 
   console.log(inputString);
@@ -59,10 +59,7 @@ result.addEventListener("click", () => {
   console.log(numbers);
   console.log("----------------------------");
 
-    // bây giờ chúng ta đang lặp qua mảng và thực hiện một thao tác tại một thời điểm.
-    // đầu tiên chia, sau đó nhân, sau đó trừ và sau đó cộng
-    // khi chúng ta di chuyển, chúng ta đang thay đổi các số ban đầu và mảng toán tử
-    // phần tử cuối cùng còn lại trong mảng sẽ là đầu ra
+   
 
   let divide = operators.indexOf("/");
   while (divide != -1) {
@@ -87,12 +84,11 @@ result.addEventListener("click", () => {
 
   let add = operators.indexOf("+");
   while (add != -1) {
-    // using parseFloat is necessary, otherwise it will result in string concatenation :)
     numbers.splice(add, 2, parseFloat(numbers[add]) + parseFloat(numbers[add + 1]));
     operators.splice(add, 1);
     add = operators.indexOf("+");
   }
 
-  input.innerHTML = numbers[0];
+  input.innerHTML = numbers;
 })
 
